@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		* {box-sizing: border-box;}
+
+		body{
+			margin: 0;
+			font-family: arial;
+		}
+
+		.topnav {
+			overflow: hidden;
+		    background-color: #e9e9e9;
+		}
+
+		.topnav li{
+			float: left;
+			display: block;
+			color: black;
+            cursor: pointer;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+
+		.topnav li:hover{
+			background-color: #ddd;
+			color: black;
+		}
+
+		.topnav li.active{
+			background-color: #2196F3;
+			color: white;
+		}
+
+		#myInput{
+			float: right;
+			padding: 6px;
+			margin-top: 8px;
+			margin-right: 16px;
+			font-size: 17px;
+			border: none;
+		}
+
+		.dropdown-content{
+			float: right;
+			display: none;
+			background-color: #f6f6f6;
+			min-width: 192px;
+			margin-top: -5px;
+			margin-right: 16px;
+			overflow: auto;
+			border: 1px solid #ddd;
+			z-index: 1;
+		}
+
+		.dropdown-content li{
+			color: black;
+		    padding: 12px 16px;
+		    text-decoration: none;
+    		display: block;
+    		cursor: pointer;
+		}
+
+		.dropdown-content li:hover {
+			background-color: #ddd;
+		}
+
+		.show {
+			display: block;
+		}
+
+		#link{
+			padding: 10px;
+		}
+		
+	</style>
+</head>
+<body>
+	<div class="topnav">
+		<li class="active" onclick=home()>Home</li>
+	    <li>About</li>
+        <li>Contact</li>
+        <input type="text" placeholder="Search.." id="myInput" onclick="myFunction()" onkeyup="filterFunction()">
+    </div>
+    <div id="mydropdown" class="dropdown-content">
+        <li onclick=bears()&myFunction()>Bear</li>
+ 		<li onclick=lions()&myFunction()>Lion</li>
+	    <li onclick=rhinos()&myFunction()>Rhino</li>
+   		<li onclick=mice()&myFunction()>Mouse</li>
+    	<li onclick=horses()&myFunction()>Horse</li>
+	   	<li onclick=elephants()&myFunction()>Elephant</li>
+    	<li onclick=cats()&myFunction()>Cat</li>
+    	<li onclick=gorillas()&myFunction()>Gorilla</li>
+    	<li onclick=buffalos()&myFunction()>Buffalo</li>
+    	<li onclick=zebras()&myFunction()>Zebra</li>
+    </div>
+    <h2 id="name"></h2>
+    <img id="img">
+    <p id="description"></p>
+    <script>
+    	var current;
+    	var bear={"name":"Bear","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/2010-brown-bear.jpg/200px-2010-brown-bear.jpg","description":"Bears are carnivoran mammals of the family Ursidae. They are classified as caniforms, or doglike carnivorans. Although only eight species of bears are extant, they are widespread, appearing in a wide variety of habitats throughout the Northern Hemisphere and partially in the Southern Hemisphere. Bears are found on the continents of North America, South America, Europe, and Asia. Common characteristics of modern bears include large bodies with stocky legs, long snouts, small rounded ears, shaggy hair, plantigrade paws with five nonretractile claws, and short tails."};
+
+    	var lion={"name":"Lion","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Lion_%28Panthera_leo%29_%2830941994012%29.jpg/220px-Lion_%28Panthera_leo%29_%2830941994012%29.jpg","description":"The lion (Panthera leo) is a species in the family Felidae, and a member of the genus Panthera. It exhibits a pronounced sexual dimorphism; males are larger than females with a typical weight range of 150 to 250 kg (331 to 551 lb) for the former and 120 to 182 kg (265 to 401 lb) for the latter. In addition, male lions have a prominent mane, which is the most recognisable feature of the species. Both sexes have hairy tufts at the end of their tails."};
+
+    	var rhino={"name":"Rhinoceros","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Diceros_bicornis.jpg/250px-Diceros_bicornis.jpg","description":"A rhinoceros (/raɪˈnɒsərəs/, from Greek rhinokeros, meaning 'nose-horned', from rhinos, meaning 'nose', and kerato/keras, meaning 'horn'), commonly abbreviated to rhino, is one of any five extant species of odd-toed ungulates in the family Rhinocerotidae, as well as any of the numerous extinct species. Two of the extant species are native to Africa and three to Southern Asia."};
+
+    	var mouse={"name":"Mouse","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Fancy_mice.jpg/250px-Fancy_mice.jpg","description":"A mouse (Mus), plural mice, is a small rodent characteristically having a pointed snout, small rounded ears, a body-length scaly tail and a high breeding rate. The best known mouse species is the common house mouse (Mus musculus). It is also a popular pet. In some places, certain kinds of field mice are locally common. They are known to invade homes for food and shelter."};
+
+    	var horse={"name":"Horse","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Nokota_Horses_cropped.jpg/220px-Nokota_Horses_cropped.jpg","description":"The horse (Equus ferus caballus)[2][3] is one of two extant subspecies of Equus ferus. It is an odd-toed ungulate mammal belonging to the taxonomic family Equidae. The horse has evolved over the past 45 to 55 million years from a small multi-toed creature, Eohippus, into the large, single-toed animal of today. Humans began to domesticate horses around 4000 BC, and their domestication is believed to have been widespread by 3000 BC."};
+
+    	var elephant={"name":"Elephant","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/African_Bush_Elephant.jpg/220px-African_Bush_Elephant.jpg","description":"Elephants are large mammals of the family Elephantidae and the order Proboscidea. Three species are currently recognised: the African bush elephant (Loxodonta africana), the African forest elephant (L. cyclotis), and the Asian elephant (Elephas maximus). Elephants are scattered throughout sub-Saharan Africa, South Asia, and Southeast Asia. Elephantidae is the only surviving family of the order Proboscidea; other, now extinct, members of the order include deinotheres, gomphotheres, mammoths, and mastodons."};
+
+    	var cat={"name":"Cat","image":"","description":"The domestic cat (Felis silvestris catus or Felis catus)[1][5] is a small, typically furry, carnivorous mammal. They are often called house cats[6] when kept as indoor pets or simply cats when there is no need to distinguish them from other felids and felines. They are often valued by humans for companionship and for their ability to hunt vermin. There are more than seventy cat breeds recognized by various cat registries."};
+
+    	var gorilla={"name":"Gorilla","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Male_gorilla_in_SF_zoo.jpg/220px-Male_gorilla_in_SF_zoo.jpg","description":"Gorillas are ground-dwelling, predominantly herbivorous apes that inhabit the forests of central Sub-Saharan Africa. The genus Gorilla is divided into two species: the eastern gorillas and the western gorillas (both critically endangered), and either four or five subspecies. They are the largest living primates. The DNA of gorillas is highly similar to that of humans, from 95–99% depending on what is counted, and they are the next closest living relatives to humans after the chimpanzees and bonobos."};		
+
+    	var buffalo={"name":"Buffalo","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Water_buffalo.jpg/220px-Water_buffalo.jpg","description":"The water buffalo (Bubalus bubalis) or domestic Asian water buffalo is a large bovid originating in South Asia, Southeast Asia, and China. Today, it is also found in Europe, Australia, North America, South America and some African countries.[1] The wild water buffalo (Bubalus arnee) native to Southeast Asia is considered a different species, but most likely represents the ancestor of the domestic water buffalo.[2]"};
+
+    	var zebra={"name":"Zebra","image":"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Plains_Zebra_Equus_quagga.jpg/220px-Plains_Zebra_Equus_quagga.jpg","description":"Zebras (/ˈziːbrə/ ZEE-brə or British English: /ˈzɛbrə/ ZEB-rə)[1] are several species of African equids (horse family) united by their distinctive black and white striped coats. Their stripes come in different patterns, unique to each individual. They are generally social animals that live in small harems to large herds. Unlike their closest relatives, horses and donkeys, zebras have never been truly domesticated."};
+        
+
+    	function bears(){
+    		document.getElementById("name").innerHTML=bear.name;
+    		document.getElementById("img")["src"]=bear.image;
+    		document.getElementById("description").innerHTML=bear.description;
+    	}
+        
+        function lions(){
+    		document.getElementById("name").innerHTML=lion.name;
+    		document.getElementById("img")["src"]=lion.image;
+    		document.getElementById("description").innerHTML=lion.description;
+    	}
+        
+        function rhinos(){
+    		document.getElementById("name").innerHTML=rhino.name;
+    		document.getElementById("img")["src"]=rhino.image;
+    		document.getElementById("description").innerHTML=rhino.description;
+    	}
+        
+        function mice(){
+    		document.getElementById("name").innerHTML=mouse.name;
+    		document.getElementById("img")["src"]=mouse.image;
+    		document.getElementById("description").innerHTML=mouse.description;
+    	}
+        
+        function elephants(){
+    		document.getElementById("name").innerHTML=elephant.name;
+    		document.getElementById("img")["src"]=elephant.image;
+    		document.getElementById("description").innerHTML=elephant.description;
+    	}
+        
+        function horses(){
+    		document.getElementById("name").innerHTML=horse.name;
+    		document.getElementById("img")["src"]=horse.image;
+    		document.getElementById("description").innerHTML=horse.description;
+    	}
+        
+        function cats(){
+    		document.getElementById("name").innerHTML=cat.name;
+    		document.getElementById("img")["src"]=cat.image;
+    		document.getElementById("description").innerHTML=cat.description;
+    	}
+        
+        function gorillas(){
+    		document.getElementById("name").innerHTML=gorilla.name;
+    		document.getElementById("img")["src"]=gorilla.image;
+    		document.getElementById("description").innerHTML=gorilla.description;
+    	}
+        
+        function buffalos(){
+    		document.getElementById("name").innerHTML=buffalo.name;
+    		document.getElementById("img")["src"]=buffalo.image;
+    		document.getElementById("description").innerHTML=buffalo.description;
+    	}
+        
+        function zebras(){
+    		document.getElementById("name").innerHTML=zebra.name;
+    		document.getElementById("img")["src"]=zebra.image;
+    		document.getElementById("description").innerHTML=zebra.description;
+    	}
+
+    	function myFunction(){
+    		document.getElementById("mydropdown").classList.toggle("show");
+	    }
+        
+        function home(){
+    		document.getElementById("name").innerHTML="";
+    		document.getElementById("img")["src"]="";
+    		document.getElementById("description").innerHTML="";
+    	}
+
+	    function filterFunction() {
+    		var input, filter, li, i;
+    		input = document.getElementById("myInput");
+		    filter = input.value.toUpperCase();
+    		div = document.getElementById("mydropdown");
+	    	li = div.getElementsByTagName("li");
+	    	for (i = 0; i < li.length; i++) {
+		        if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+    		        li[i].style.display = "";
+	        	} else {
+    	        	li[i].style.display = "none";
+		        }
+    		}
+		}
+    </script>
+</body>
+</html>
